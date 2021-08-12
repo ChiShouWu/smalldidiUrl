@@ -1,0 +1,33 @@
+{
+  "name": "backend_template",
+  "version": "1.0.0",
+  "description": "node backend project template",
+  "main": "index.js",
+  "scripts": {
+    "start": "ts-node src/app.ts",
+    "dev": "npm run lint & nodemon --watch 'src/**/*.ts' --exec ts-node src/app.ts",
+    "build": "tsc",
+    "lint": "eslint .",
+    "test": "jest --coverage"
+  },
+  "author": "ChiShouWu",
+  "license": "ISC",
+  "devDependencies": {
+    "@types/express": "^4.17.12",
+    "@types/jest": "^26.0.23",
+    "@types/node": "^15.12.4",
+    "@typescript-eslint/eslint-plugin": "^4.28.0",
+    "@typescript-eslint/parser": "^4.28.0",
+    "eslint": "^7.29.0",
+    "eslint-config-airbnb-base": "^14.2.1",
+    "eslint-plugin-import": "^2.23.4",
+    "express": "^4.17.1",
+    "jest": "^27.0.5",
+    "nodemon": "^2.0.7",
+    "ts-jest": "^27.0.3",
+    "ts-node": "^10.0.0",
+    "typescript": "^4.3.4"
+  },
+  "dependencies": {
+  }
+}
