@@ -1,0 +1,97 @@
+openapi: '3.0.2'
+info:
+  title: Small DiDi Short Url Service
+  version: '1.0'
+servers:
+  - url: https://localhost:3000/api
+
+components:
+  securitySchemes:
+    bearerAuth:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT
+  schemas:
+    Short:
+      description: Short url and cotent
+      type: object
+      properties:
+        id:
+          type: string
+          format: uuid
+          example: d290f1ee-6c54-4b01-90e6-d701748f0851
+        shortUrl:
+          type: string
+          description: 8 byte size string
+          example: efj4fh28
+        originUrl:
+          type: string
+          description: origin url length limit is 200 bytes
+          example: http://www.facebook.com
+        createAt:
+          type: string
+          description: short url create time, timestamp
+        expirationInMins:
+          type: integer
+          description: this url will expiration since timestamp plus this value
+        usageCount:
+          type: integer
+          description: count this short url usage times
+
+
+paths:
+  /short/{hash}:
+    get:
+      summary: get origin url
+      parameters:
+        - in: path
+          name: hash
+          required: true
+          description: 8 bytes code of hash url
+          schema:
+            type: string
+            format: uuid
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                $ref:  "#/components/schemas/Short"
+                "400":
+        "404":
+          description: not found
+        "500":
+          description: server error
+      tags:
+        - "short"
+  /short:
+    post:
+      summary: get origin url
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+                - "email"
+                - "password"
+              properties:
+                url:
+                  type: string
+                  example: "http://something.com/123456"
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                $ref: "#/components/schemas/Short"
+        "404":
+          description: not found
+        "500":
+          description: server error
+      tags:
+        - "short"
