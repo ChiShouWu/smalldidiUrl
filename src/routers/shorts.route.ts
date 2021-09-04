@@ -27,7 +27,7 @@ shortRouter.get('/:hash',
   async (req: Request, res: Response) => {
     try {
       const data = await Shorts.getUrl(req.params.hash);
-      return res.status(200).json(data).send();
+      return res.status(302).json(data).send();
     } catch (e) {
       const error = e as HttpRequestError;
       return res.status(error.status).send(error.message);

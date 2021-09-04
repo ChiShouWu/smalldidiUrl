@@ -52,14 +52,15 @@ paths:
             type: string
             format: uuid
       responses:
-        '200':
+        '302':
           description: OK
           content:
             application/json:
               schema:
                 type: object
                 $ref:  "#/components/schemas/Short"
-                "400":
+        "400":
+          description: invalid input
         "404":
           description: not found
         "500":
