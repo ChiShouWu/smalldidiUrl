@@ -16,10 +16,11 @@
 ## Development
 ```
 // start databse
+mongod --dbpath {path/to/your/db/dir}/data
 
 // start dev server
-git clone git@
-cd project
+git clone git@github.com:ChiShouWu/smalldidiUrl.git 
+cd smalldidiUrl
 npm install
 npm run dev // This will run lint first than dev
 ```
