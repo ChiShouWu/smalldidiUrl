@@ -4,14 +4,14 @@ interface IShort {
   originUrl: string,
   shortUrl: string,
   createAt: Date,
-  expirationInMins: Number,
+  expireAt: Date,
   usageCount: Number,
 }
 const ShortSchema = new Schema({
   originUrl: { type: String, require: true },
   shortUrl: { type: String, require: true },
   createAt: { type: Date, require: true, default: Date.now },
-  expirationInMins: { type: Number },
+  expireAt: { type: Date },
   usageCount: { type: Number, default: 0 },
 });
 const Short = model<IShort>('ShortUrl', ShortSchema);
