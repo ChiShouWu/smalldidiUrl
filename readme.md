@@ -10,8 +10,7 @@
 - **DataBase**: mySql/MariaDB
 - **Lint**: eslint, AirBnb
 - **Test**: jest
-- **CI/CD**: jenkins
-- 
+- **CI/CD**: Drone
 ---
 ## Development
 ```
