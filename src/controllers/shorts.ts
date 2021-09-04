@@ -14,7 +14,7 @@ export class Shorts {
    */
   static genShortUrl(originUrl: string): string {
     const base64Url = Buffer.from(originUrl).toString('base64');
-    return base64Url.slice(8);
+    return base64Url.slice(0, 8);
   }
 
   /**
@@ -44,7 +44,7 @@ export class Shorts {
    */
   static async getUrl(hash: string): Promise<IShort | null> {
     try {
-      const data = await Short.mod({ shortUrl: hash }, { $inc: { usageCount: 1 } }).exec();
+      const data = await Short.findOneAndUpdate({ shortUrl: hash }, { $inc: { usageCount: 1 } }).exec();
       if (!data) throw new HttpRequestError(404, 'url not found');
       return data;
     } catch (e) {
