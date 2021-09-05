@@ -2,7 +2,7 @@ import mongoose from 'mongoose';
 import winston from 'winston';
 
 // Build the connection string
-const dbURI = 'mongodb://localhost:27017';
+const dbURI = process.env.MONGO_URI;
 
 const options = {
   useNewUrlParser: true,
@@ -21,7 +21,7 @@ winston.debug(dbURI);
 
 // Create the database connection
 mongoose
-  .connect(dbURI, options)
+  .connect(dbURI!, options)
   .then(() => {
     winston.info('Mongoose connection done');
   })

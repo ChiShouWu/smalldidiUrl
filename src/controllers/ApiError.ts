@@ -9,8 +9,8 @@ export default class HttpRequestError extends Error {
   }
 
   static checkError(e: HttpRequestError) {
-    if (e.status > 500) {
-      throw new HttpRequestError(500, 'Server Error');
+    if (e.status > 500 || !e.status) {
+      throw new HttpRequestError(500, e.message);
     }
     throw e;
   }
