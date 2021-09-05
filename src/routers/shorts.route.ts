@@ -7,7 +7,7 @@ import HttpRequestError from '../controllers/ApiError';
 const shortRouter = express.Router();
 shortRouter.post('/',
   body('url').isLength({ max: 200 }).isURL(),
-  body('expireAt').optional().isDate(),
+  body('expireAt').optional().isISO8601(),
   async (req: Request, res: Response) => {
     const errors = validationResult(req);
     if (!errors.isEmpty()) {
