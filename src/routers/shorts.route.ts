@@ -10,9 +10,11 @@ shortRouter.post('/',
   body('expireAt').optional().isISO8601(),
   async (req: Request, res: Response) => {
     const errors = validationResult(req);
+
     if (!errors.isEmpty()) {
       return res.status(400).json({ success: false, errors: errors.array() });
     }
+
     try {
       const hash = Shorts.genShortUrl(req.body.url);
       const data = await Shorts.create(req.body.url, hash, req.body.expireAt);
@@ -27,9 +29,11 @@ shortRouter.get('/:hash',
   async (req: Request, res: Response) => {
     try {
       const data = await Shorts.getUrl(req.params.hash);
+
       return res.status(200).json({ url: data!.originUrl }).send();
     } catch (e) {
       const error = e as HttpRequestError;
+
       return res.status(error.status).send(error.message);
     }
   });

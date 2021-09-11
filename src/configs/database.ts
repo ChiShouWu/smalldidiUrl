@@ -1,7 +1,10 @@
 import mongoose from 'mongoose';
 import winston from 'winston';
+import path from 'path';
+import * as dotenv from 'dotenv';
 
-// Build the connection string
+dotenv.config({ path: path.resolve(__dirname, `../environments/.env.${process.env.NODE_ENV}`) });
+
 const dbURI = process.env.MONGO_URI;
 
 const options = {

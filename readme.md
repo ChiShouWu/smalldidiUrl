@@ -24,6 +24,10 @@ cd smalldidiUrl
 npm install
 npm run dev // This will run lint first than dev
 ```
+## Development with docker
+```
+sudo docker-compose -f docker/docker-compose-dev.yaml up --build
+```
 
 ## Test
 ```
