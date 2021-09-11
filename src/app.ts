@@ -2,6 +2,8 @@ import express from 'express';
 import morgan from 'morgan';
 import winston from 'winston';
 import cors from 'cors';
+import * as dotenv from 'dotenv';
+import path from 'path';
 import Shorts from './controllers/shorts';
 import shortRouter from './routers/shorts.route';
 import './configs/database';
@@ -11,8 +13,10 @@ import './configs/database';
 //   optionsSuccessStatus: 200, // some legacy browsers (IE11, various SmartTVs) choke on 204
 // };
 
+dotenv.config({ path: path.resolve(__dirname, `../environments/.env.${process.env.NODE_ENV}`) });
+
 const app = express();
-const PORT = 5000;
+const { PORT } = process.env;
 
 app.use(cors());
 app.use(express.json());
