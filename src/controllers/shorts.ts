@@ -1,8 +1,7 @@
 /* eslint-disable max-len */
-import winston from 'winston';
 import HttpRequestError from './ApiError';
 import { IShort, Short } from '../models/short';
-
+import Logger from '../configs/Logger';
 /**
  * Create short url and manage short url table
  */
@@ -57,12 +56,12 @@ export class Shorts {
    * remove expired data from DB
    */
   static checkExpired() {
-    winston.debug('checked expired');
+    Logger.debug('checked expired');
     try {
       const now = new Date();
       Short.deleteMany({ expireAt: { $lte: now } });
     } catch (e) {
-      winston.error(`method: checkExipired dettail: ${(e as Error).message}`);
+      Logger.error(`method: checkExipired dettail: ${(e as Error).message}`);
     }
   }
 }

@@ -1,11 +1,12 @@
 import express from 'express';
-import morgan from 'morgan';
-import winston from 'winston';
 import cors from 'cors';
 import * as dotenv from 'dotenv';
 import path from 'path';
+
 import Shorts from './controllers/shorts';
 import shortRouter from './routers/shorts.route';
+import Logger from './configs/Logger';
+import morganMiddleware from './configs/morganMiddleware';
 import './configs/database';
 
 // const corsOptions = {
@@ -21,13 +22,13 @@ const { PORT } = process.env;
 app.use(cors());
 app.use(express.json());
 app.use(express.urlencoded());
-app.use(morgan('combined'));
+app.use(morganMiddleware);
 
 app.get('/', (req, res) => res.send('Express + TypeScript Server'));
 app.use('/api/short', shortRouter);
 
 app.listen(PORT, () => {
-  winston.info(`[server]: Server is running at http://localhost:${PORT}`);
+  Logger.info(`[server]: Server is running at http://localhost:${PORT}`);
 });
 
 // start check expired url

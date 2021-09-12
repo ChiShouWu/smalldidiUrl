@@ -1,11 +1,11 @@
 import mongoose from 'mongoose';
-import winston from 'winston';
 import path from 'path';
 import * as dotenv from 'dotenv';
+import Logger from './Logger';
 
-dotenv.config({ path: path.resolve(__dirname, `../environments/.env.${process.env.NODE_ENV}`) });
+dotenv.config({ path: path.resolve(__dirname, `../../environments/.env.${process.env.NODE_ENV}`) });
 
-const dbURI = process.env.MONGO_URI;
+const { MONGO_URI } = process.env;
 
 const options = {
   useNewUrlParser: true,
@@ -20,39 +20,36 @@ const options = {
   socketTimeoutMS: 45000, // Close sockets after 45 seconds of inactivity
 };
 
-winston.debug(dbURI);
-
 // Create the database connection
 mongoose
-  .connect(dbURI!, options)
+  .connect(MONGO_URI!, options)
   .then(() => {
-    winston.info('Mongoose connection done');
+    Logger.info('Mongoose connection done');
   })
   .catch((e) => {
-    winston.info('Mongoose connection error');
-    winston.error(e);
+    Logger.error(`Mongoose connection error: ${e}`);
   });
 
 // CONNECTION EVENTS
 // When successfully connected
 mongoose.connection.on('connected', () => {
-  winston.info(`Mongoose default connection open to ${dbURI}`);
+  Logger.info(`Mongoose default connection open to ${MONGO_URI}`);
 });
 
 // If the connection throws an error
 mongoose.connection.on('error', (err) => {
-  winston.error(`Mongoose default connection error: ${err}`);
+  Logger.error(`Mongoose default connection error: ${err}`);
 });
 
 // When the connection is disconnected
 mongoose.connection.on('disconnected', () => {
-  winston.info('Mongoose default connection disconnected');
+  Logger.info('Mongoose default connection disconnected');
 });
 
 // If the Node process ends, close the Mongoose connection
 process.on('SIGINT', () => {
   mongoose.connection.close(() => {
-    winston.info('Mongoose default connection disconnected through app termination');
+    Logger.info('Mongoose default connection disconnected through app termination');
     process.exit(0);
   });
 });
