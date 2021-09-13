@@ -1,0 +1,34 @@
+kind: pipeline
+type: docker
+name: frontend_dev
+
+steps:
+  - name: lint&test
+    image: node
+    commands:
+      - npm install
+      - npm run lint
+  
+  - name: build image
+    image: appleboy/drone-ssh
+    settings:
+      host:
+        from_secret: ssh_host
+      username: 
+        from_secrect: ssh_name
+      key:
+        from_secrect: ssh_key
+      port: 22
+      timeout: 60s
+      command_timeout: 2m
+      script:
+        - cd datadrive/apps/smalldidiUrl
+        - sudo docker image history backend:1.0
+        - cd ~/datadrive/nginx
+        - sudo docker-compose -f docker-compose.yml up 
+
+trigger:
+  branch:
+    - dev
+  event:
+    - push
