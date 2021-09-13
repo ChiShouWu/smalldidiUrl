@@ -25,9 +25,9 @@ steps:
         - cd datadrive/apps/smalldidiUrl
         - git checkout dev
         - git pull
-        - sudo docker image history backend:1.0
+        - sudo docker build -f docker/dockerfile . -t backend:1.0
         - cd ~/datadrive/nginx
-        - sudo docker-compose -f docker-compose.yml up 
+        - sudo docker-compose -f docker-compose.yml up -d 
 
 trigger:
   branch:
