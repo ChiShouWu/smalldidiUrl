@@ -5,3 +5,4 @@ package-lock.json
 .vscode
 docker/data
 .env
+logs

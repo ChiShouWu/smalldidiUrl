@@ -1,4 +1,5 @@
 /* eslint-disable max-len */
+import { SHA256 } from 'crypto-js';
 import HttpRequestError from './ApiError';
 import { IShort, Short } from '../models/short';
 import Logger from '../configs/Logger';
@@ -12,8 +13,8 @@ export class Shorts {
    * @returns an 8 btyes base64 url
    */
   static genShortUrl(originUrl: string): string {
-    const base64Url = Buffer.from(originUrl).toString('base64');
-    return base64Url.slice(0, 8);
+    const hashUrl = SHA256(originUrl).toString();
+    return hashUrl.slice(0, 8);
   }
 
   /**
