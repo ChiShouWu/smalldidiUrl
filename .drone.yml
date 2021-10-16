@@ -19,8 +19,8 @@ steps:
       key:
         from_secret: ssh_key
       port: 22
-      timeout: 10m
-      command_timeout: 5m
+      timeout: 30m
+      command_timeout: 30m
       script:
         - cd ~/app/smalldidiUrl
         - git checkout dev
