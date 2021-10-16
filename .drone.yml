@@ -19,7 +19,7 @@ steps:
       key:
         from_secret: ssh_key
       port: 22
-      timeout: 60s
+      timeout: 10m
       command_timeout: 2m
       script:
         - cd ~/app/smalldidiUrl
