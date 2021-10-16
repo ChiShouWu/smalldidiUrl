@@ -8,7 +8,6 @@ steps:
     commands:
       - npm install
       - npm run lint
-      - npm run test
   
   - name: build image
     image: appleboy/drone-ssh
