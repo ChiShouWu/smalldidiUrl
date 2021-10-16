@@ -1,6 +1,6 @@
 kind: pipeline
 type: docker
-name: frontend_dev
+name: backend_dev
 
 steps:
   - name: lint&test
@@ -8,6 +8,7 @@ steps:
     commands:
       - npm install
       - npm run lint
+      - npm run test
   
   - name: build image
     image: appleboy/drone-ssh
@@ -23,8 +24,8 @@ steps:
       command_timeout: 2m
       script:
         - cd ~/app/smalldidiUrl
-        - git checkout dev
-        - git pull
+        - git checkout master
+        - git pull origin master
         - sudo docker build -f docker/dockerfile . -t backend:latest
         - cd ~/nginx
         - sudo docker-compose -f docker-compose.yml up -d 
@@ -38,12 +39,21 @@ steps:
         from_secret: discord_token
       message: >
         {{#success build.status}}
-          build {{build.number}} succeeded. Good job.
+          ✅ Build #{{build.number}} of `{{repo.name}}` succeeded.
+          📝 Commit by {{commit.author}} on `{{commit.branch}}`:
+          ```
+          {{commit.message}}
+          ```
+          🌐 {{ build.link }}
         {{else}}
-          build {{build.number}} failed. {{build.author}} Fix me please.
-          {{build.message}}
+          ❌ Build #{{build.number}} of `{{repo.name}}` failed.
+          📝 Commit by {{commit.author}} on `{{commit.branch}}`:
+          ```
+          {{commit.message}}
+          ```
+          🌐 {{ build.link }}
         {{/success}}
-        
+
 trigger:
   branch:
     - dev
