@@ -11,6 +11,7 @@ shortRouter.post('/',
   async (req: Request, res: Response) => {
     const errors = validationResult(req);
 
+    // bad request
     if (!errors.isEmpty()) {
       return res.status(400).json({ success: false, errors: errors.array() });
     }
@@ -18,6 +19,7 @@ shortRouter.post('/',
     try {
       const hash = Shorts.genShortUrl(req.body.url);
       const data = await Shorts.create(req.body.url, hash, req.body.expireAt);
+      console.log(data);
       return res.status(200).json(data).send();
     } catch (e) {
       const error = e as HttpRequestError;

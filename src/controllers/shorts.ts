@@ -62,7 +62,7 @@ export class Shorts {
       const now = new Date();
       Short.deleteMany({ expireAt: { $lte: now } });
     } catch (e) {
-      Logger.error(`method: checkExipired dettail: ${(e as Error).message}`);
+      Logger.error(`method: checkExipired detail: ${(e as Error).message}`);
     }
   }
 }

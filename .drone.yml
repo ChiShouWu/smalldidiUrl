@@ -22,11 +22,11 @@ steps:
       timeout: 60s
       command_timeout: 2m
       script:
-        - cd datadrive/apps/smalldidiUrl
+        - cd ~/apps/smalldidiUrl
         - git checkout dev
         - git pull
-        - sudo docker build -f docker/dockerfile . -t backend:1.0
-        - cd ~/datadrive/nginx
+        - sudo docker build -f docker/dockerfile . -t backend:latest
+        - cd ~/nginx
         - sudo docker-compose -f docker-compose.yml up -d 
 
   - name: discord notification
@@ -43,6 +43,7 @@ steps:
           build {{build.number}} failed. {{build.author}} Fix me please.
           {{build.message}}
         {{/success}}
+        
 trigger:
   branch:
     - dev
