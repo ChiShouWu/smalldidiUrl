@@ -22,7 +22,7 @@ steps:
       timeout: 60s
       command_timeout: 2m
       script:
-        - cd ~/apps/smalldidiUrl
+        - cd ~/app/smalldidiUrl
         - git checkout dev
         - git pull
         - sudo docker build -f docker/dockerfile . -t backend:latest
